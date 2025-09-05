@@ -2,6 +2,7 @@
 name = "strength_reduce"
 version = "0.2.4"
 authors = ["Elliott Mahler <join.together@gmail.com>"]
+rust-version = "1.31"
 
 description = "Faster integer division and modulus operations"
 
@@ -12,6 +13,9 @@ documentation = "https://docs.rs/strength_reduce"
 keywords = ["arithmetic", "strength", "reduction", "division", "modulus"]
 categories = ["algorithms", "data-structures"]
 readme = "README.md"
+
+[dependencies]
+rustversion = "1"
 
 [dev-dependencies]
 proptest = "1.0.0"

@@ -64,7 +64,20 @@ impl StrengthReducedU8 {
     /// 
     /// Panics if `divisor` is 0
     #[inline]
+    #[rustversion::since(1.57)]
     pub const fn new(divisor: u8) -> Self {
+        assert!(divisor > 0);
+
+        if divisor.is_power_of_two() { 
+            Self{ multiplier: 0, divisor }
+        } else {
+            let divided = core::u16::MAX / (divisor as u16);
+            Self{ multiplier: divided + 1, divisor }
+        }
+    }
+    #[inline]
+    #[rustversion::before(1.57)]
+    pub fn new(divisor: u8) -> Self {
         assert!(divisor > 0);
 
         if divisor.is_power_of_two() { 
@@ -146,7 +159,20 @@ macro_rules! strength_reduced_u16 {
             /// 
             /// Panics if `divisor` is 0
             #[inline]
+            #[rustversion::since(1.57)]
             pub const fn new(divisor: $primitive_type) -> Self {
+                assert!(divisor > 0);
+
+                if divisor.is_power_of_two() { 
+                    Self{ multiplier: 0, divisor }
+                } else {
+                    let divided = core::u32::MAX / (divisor as u32);
+                    Self{ multiplier: divided + 1, divisor }
+                }
+            }
+            #[inline]
+            #[rustversion::before(1.57)]
+            pub fn new(divisor: $primitive_type) -> Self {
                 assert!(divisor > 0);
 
                 if divisor.is_power_of_two() { 
@@ -227,7 +253,20 @@ macro_rules! strength_reduced_u32 {
             /// 
             /// Panics if `divisor` is 0
             #[inline]
+            #[rustversion::since(1.57)]
             pub const fn new(divisor: $primitive_type) -> Self {
+                assert!(divisor > 0);
+
+                if divisor.is_power_of_two() { 
+                    Self{ multiplier: 0, divisor }
+                } else {
+                    let divided = core::u64::MAX / (divisor as u64);
+                    Self{ multiplier: divided + 1, divisor }
+                }
+            }
+            #[inline]
+            #[rustversion::before(1.57)]
+            pub fn new(divisor: $primitive_type) -> Self {
                 assert!(divisor > 0);
 
                 if divisor.is_power_of_two() { 
@@ -319,7 +358,20 @@ macro_rules! strength_reduced_u64 {
             /// 
             /// Panics if `divisor` is 0
             #[inline]
+            #[rustversion::since(1.57)]
             pub const fn new(divisor: $primitive_type) -> Self {
+                assert!(divisor > 0);
+
+                if divisor.is_power_of_two() { 
+                    Self{ multiplier: 0, divisor }
+                } else {
+                    let quotient = long_division::divide_128_max_by_64(divisor as u64);
+                    Self{ multiplier: quotient + 1, divisor }
+                }
+            }
+            #[inline]
+            #[rustversion::before(1.57)]
+            pub fn new(divisor: $primitive_type) -> Self {
                 assert!(divisor > 0);
 
                 if divisor.is_power_of_two() { 
