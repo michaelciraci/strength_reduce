@@ -523,12 +523,12 @@ mod unit_tests {
 	#[test]
 	fn test_divide_128_by_64() {
 		for divisor in core::u64::MAX..=core::u64::MAX {
-			let divisor_128 = U64_MAX;
+			let divisor_128 = core::u64::MAX as u128;
 
 			let numerator = divisor_128 * divisor_128 + (divisor_128 - 1);
 			//for numerator in core::u128::MAX - 10..core::u128::MAX {
 		        let expected_quotient = numerator / divisor as u128;
-		        assert!(expected_quotient == U64_MAX);
+		        assert!(expected_quotient == core::u64::MAX as u128);
 
 		        let actual_quotient = super::divide_128_by_64_helper(numerator as u128, divisor);
 
